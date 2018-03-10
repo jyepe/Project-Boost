@@ -83,13 +83,15 @@ public class Rocket : MonoBehaviour {
         {
             if (collision.gameObject.tag.ToLower() == "finish")
             {
+                sound.Stop();
                 status = RocketStatus.Transcending;
+                sound.PlayOneShot(winningSound);
                 Invoke("changeLevel", 1f);
             }
             else
             {
+                sound.Stop();
                 status = RocketStatus.Dead;
-                //sound.Stop();
                 sound.PlayOneShot(explosionSound);
                 Invoke("changeLevel", 1f);
             }
