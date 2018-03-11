@@ -9,9 +9,15 @@ public class Rocket : MonoBehaviour {
     [SerializeField] float rcsThrust = 100f;    //Used for power of rotation of the rocket
     [SerializeField] float mainThrust = 100f;   //Used for power of main thrust of rocket
     [SerializeField] GameObject rotatingObstacle;   //The rotating obstacle in the scene
+
     [SerializeField] AudioClip mainEngineSound;
     [SerializeField] AudioClip explosionSound;
     [SerializeField] AudioClip winningSound;
+
+    [SerializeField] ParticleSystem engineParticles;
+    [SerializeField] ParticleSystem explosionParticles;
+    [SerializeField] ParticleSystem winningParticles;
+
     Vector3 rotatingObstacleVector;     //The initial popsition of the rotating obstacle in the scene
     Rigidbody rigidBody;    
     AudioSource sound;
@@ -40,6 +46,7 @@ public class Rocket : MonoBehaviour {
         getCurrentLevel();
 	}
 
+    //Gets the current level loaded
     private void getCurrentLevel()
     {
         currentLevel = SceneManager.GetActiveScene().buildIndex;
@@ -55,6 +62,45 @@ public class Rocket : MonoBehaviour {
         }
         
         obstaclePosition();
+    }
+
+    //Moves the position of the rocket in the direction it's facing
+    private void Thrust()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            rigidBody.AddRelativeForce(Vector3.up * mainThrust);
+
+            if (!sound.isPlaying)
+            {
+                sound.PlayOneShot(mainEngineSound);
+                engineParticles.Play();
+            }
+        }
+        else
+        {
+            sound.Stop();
+            engineParticles.Stop();
+        }
+    }
+
+    //Changes the direction if the ship
+    private void Rotate()
+    {
+        rigidBody.freezeRotation = true;
+
+        float rotationSpeed = rcsThrust * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.LeftArrow)) //Rotate ship to the left
+        {
+            rotation.Rotate(Vector3.forward * rotationSpeed);
+        }
+        else if (Input.GetKey(KeyCode.RightArrow)) //Rotate ship to the right
+        {
+            rotation.Rotate(Vector3.back * rotationSpeed);
+        }
+
+        rigidBody.freezeRotation = false;
     }
 
     /// <summary>
@@ -81,67 +127,39 @@ public class Rocket : MonoBehaviour {
     {
         if (collision.gameObject.tag.ToLower() != "friendly")
         {
-            if (collision.gameObject.tag.ToLower() == "finish")
+            if (collision.gameObject.tag.ToLower() == "finish") //If ship reached landing pad
             {
                 sound.Stop();
                 status = RocketStatus.Transcending;
                 sound.PlayOneShot(winningSound);
+                winningParticles.Play();
                 Invoke("changeLevel", 1f);
             }
-            else
+            else // If ship touched an obstacle
             {
                 sound.Stop();
                 status = RocketStatus.Dead;
                 sound.PlayOneShot(explosionSound);
+                explosionParticles.Play();
                 Invoke("changeLevel", 1f);
             }
         }
     }
 
+    //Changes level depending on whether player died or passed
     private void changeLevel()
     {
         if (status == RocketStatus.Transcending)
         {
+            //Load next level
             SceneManager.LoadScene(currentLevel + 1);
         }
         else if (status == RocketStatus.Dead)
         {
+            //Load level 1
             SceneManager.LoadScene(0);
         }
     }
 
-    private void Thrust()
-    {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            rigidBody.AddRelativeForce(Vector3.up * mainThrust);
-
-            if (!sound.isPlaying)
-            {
-                sound.PlayOneShot(mainEngineSound);
-            }
-        }
-        else
-        {
-            sound.Stop();
-        }
-    }
-
-    private void Rotate()
-    {
-        rigidBody.freezeRotation = true;
-        
-        float rotationSpeed = rcsThrust * Time.deltaTime;
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            rotation.Rotate(Vector3.forward * rotationSpeed);
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            rotation.Rotate(Vector3.back * rotationSpeed);
-        }
-
-        rigidBody.freezeRotation = false;
-    }
+    
 }

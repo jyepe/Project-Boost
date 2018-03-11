@@ -161,36 +161,14 @@ Prefab:
       propertyPath: m_Name
       value: Rocket Ship
       objectReference: {fileID: 0}
-    - target: {fileID: 82408523001594352, guid: ac582089406ca9b42bd120dbe7a6367c,
-        type: 2}
-      propertyPath: BypassReverbZones
-      value: 1
+    - target: {fileID: 4167186198962778, guid: ac582089406ca9b42bd120dbe7a6367c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.35
       objectReference: {fileID: 0}
-    - target: {fileID: 82408523001594352, guid: ac582089406ca9b42bd120dbe7a6367c,
-        type: 2}
-      propertyPath: m_audioClip
-      value: 
+    - target: {fileID: 4167186198962778, guid: ac582089406ca9b42bd120dbe7a6367c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.04
       objectReference: {fileID: 0}
-    - target: {fileID: 114692204142157716, guid: ac582089406ca9b42bd120dbe7a6367c,
-        type: 2}
-      propertyPath: mainEngine
-      value: 
-      objectReference: {fileID: 8300000, guid: 5b8654842819b6b4b97d2145338110f0, type: 3}
-    - target: {fileID: 114692204142157716, guid: ac582089406ca9b42bd120dbe7a6367c,
-        type: 2}
-      propertyPath: mainEngineSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 5b8654842819b6b4b97d2145338110f0, type: 3}
-    - target: {fileID: 114692204142157716, guid: ac582089406ca9b42bd120dbe7a6367c,
-        type: 2}
-      propertyPath: explosionSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 71bcbcd6a4af43d42ad14dd429b91bae, type: 3}
-    - target: {fileID: 114692204142157716, guid: ac582089406ca9b42bd120dbe7a6367c,
-        type: 2}
-      propertyPath: winningSound
-      value: 
-      objectReference: {fileID: 8300000, guid: ee3ee672fdbca794bb55cf418ec92cb6, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ac582089406ca9b42bd120dbe7a6367c, type: 2}
   m_IsPrefabParent: 0
