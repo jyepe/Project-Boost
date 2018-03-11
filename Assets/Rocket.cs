@@ -18,6 +18,8 @@ public class Rocket : MonoBehaviour {
     [SerializeField] ParticleSystem explosionParticles;
     [SerializeField] ParticleSystem winningParticles;
 
+    [SerializeField] float loadLevelDelay = 1f;     //Determines how long in seconds to load next level
+
     Vector3 rotatingObstacleVector;     //The initial popsition of the rotating obstacle in the scene
     Rigidbody rigidBody;    
     AudioSource sound;
@@ -69,7 +71,8 @@ public class Rocket : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            rigidBody.AddRelativeForce(Vector3.up * mainThrust);
+            //Makes rocket thrust frame independent
+            rigidBody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
 
             if (!sound.isPlaying)
             {
@@ -133,7 +136,7 @@ public class Rocket : MonoBehaviour {
                 status = RocketStatus.Transcending;
                 sound.PlayOneShot(winningSound);
                 winningParticles.Play();
-                Invoke("changeLevel", 1f);
+                Invoke("changeLevel", loadLevelDelay);
             }
             else // If ship touched an obstacle
             {
@@ -141,7 +144,7 @@ public class Rocket : MonoBehaviour {
                 status = RocketStatus.Dead;
                 sound.PlayOneShot(explosionSound);
                 explosionParticles.Play();
-                Invoke("changeLevel", 1f);
+                Invoke("changeLevel", loadLevelDelay);
             }
         }
     }

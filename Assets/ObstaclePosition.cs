@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class ObstaclePosition : MonoBehaviour {
 
     [SerializeField] Vector3 movementVector;
-    [Range(0,1)] [SerializeField] float movementFactor;
+    float movementFactor;
     Boolean moveObstacles;
     Vector3 startingPosition;
 
