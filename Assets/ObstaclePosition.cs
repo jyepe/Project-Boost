@@ -1,71 +1,78 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ObstaclePosition : MonoBehaviour {
 
-    Rigidbody body;
-    int currentLevel;
+    [SerializeField] Vector3 movementVector;
+    [Range(0,1)] [SerializeField] float movementFactor;
+    Boolean moveObstacles;
+    Vector3 startingPosition;
 
-    enum Moving
+    enum Direction
     {
         Up,
-        Down,
-        Still
+        Down
     }
-    
-    Moving direction;
+
+    Direction movement;
 
 	// Use this for initialization
 	void Start ()
     {
-        body = GetComponent<Rigidbody>();
-        getCurrentLevel();
-        Direction();
-    }
-
-    private void Direction()
-    {
-        if (currentLevel == 0)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            direction = Moving.Still;
+            startingPosition = transform.position;
+            movement = Direction.Up;
+            moveObstacles = true;
         }
-        else
-        {
-            body.useGravity = false;
-            direction = Moving.Up;
-        }
-    }
-
-    private void getCurrentLevel()
-    {
-        currentLevel = SceneManager.GetActiveScene().buildIndex;
     }
 	
 	// Update is called once per frame
-	void Update () {
-        if (currentLevel == 1)
-        {
-            body.AddRelativeForce(new Vector3(0, 1, 0));
-        }
-	}
-
-    private void OnCollisionEnter(Collision collision)
+	void Update ()
     {
-        if (currentLevel == 1)
+        if (moveObstacles)
         {
-            if (direction == Moving.Up)
+            checkDirection();
+        }
+    }
+
+    private void checkDirection()
+    {
+        if (movement == Direction.Up)
+        {
+            moveObstacleUp();
+
+            if (movementFactor >= 1f)
             {
-                direction = Moving.Down;
-                body.useGravity = true;
-            }
-            else
-            {
-                direction = Moving.Up;
-                body.useGravity = false;
+                movement = Direction.Down;
             }
         }
-        
+        else
+        {
+            moveObstacleDown();
+
+            if (movementFactor <= 0f)
+            {
+                movement = Direction.Up;
+            }
+        }
     }
+
+    private void moveObstacleDown()
+    {
+        movementFactor += -0.01f;
+        Vector3 offset = movementVector * movementFactor;
+        transform.position = offset + startingPosition;
+    }
+
+    private void moveObstacleUp()
+    {
+        movementFactor += 0.01f;
+        Vector3 offset = movementVector * movementFactor;
+        transform.position = offset + startingPosition;
+    }
+
 }
