@@ -590,6 +590,7 @@ MonoBehaviour:
   engineParticles: {fileID: 198769028759527388}
   explosionParticles: {fileID: 198095419751868798}
   winningParticles: {fileID: 198284402514736640}
+  loadLevelDelay: 1
 --- !u!198 &198095419751868798
 ParticleSystem:
   m_ObjectHideFlags: 1

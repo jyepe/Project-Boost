@@ -22,12 +22,10 @@ public class ObstaclePosition : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            startingPosition = transform.position;
-            movement = Direction.Up;
-            moveObstacles = true;
-        }
+        startingPosition = transform.position;
+        movement = Direction.Up;
+        moveObstacles = true;
+        
     }
 	
 	// Update is called once per frame

@@ -597,7 +597,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementVector: {x: 0, y: 12.7, z: 0}
-  movementFactor: 0
 --- !u!114 &114581081962304028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -622,7 +621,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementVector: {x: 0, y: 12.7, z: 0}
-  movementFactor: 0
 --- !u!135 &135940041882455768
 SphereCollider:
   m_ObjectHideFlags: 1
