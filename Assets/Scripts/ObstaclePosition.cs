@@ -25,7 +25,6 @@ public class ObstaclePosition : MonoBehaviour {
         startingPosition = transform.position;
         movement = Direction.Up;
         moveObstacles = true;
-        
     }
 	
 	// Update is called once per frame

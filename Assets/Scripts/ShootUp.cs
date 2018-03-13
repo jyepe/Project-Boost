@@ -8,29 +8,61 @@ public class ShootUp : MonoBehaviour {
     float movementFactor;
     Vector3 startingPosition;
 
+    enum Direction
+    {
+        Up,
+        Down
+    }
+
+    Direction movement;
+
     // Use this for initialization
     void Start () {
-		
-	}
+        startingPosition = transform.position;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        startingPosition = transform.position;
 
-        if (movementFactor == 1f)
+        checkDirection();
+
+
+        if (movementFactor >= 1f)
         {
             moveObstacleDown();
         }
-        else
+        else if (movementFactor <= 0f)
         {
             moveObstacleUp();
         }
         
     }
 
+    private void checkDirection()
+    {
+        if (movement == Direction.Up)
+        {
+            moveObstacleUp();
+
+            if (movementFactor >= 1f)
+            {
+                movement = Direction.Down;
+            }
+        }
+        else
+        {
+            Invoke("moveObstacleDown", 2f);
+
+            if (movementFactor <= 0f)
+            {
+                movement = Direction.Up;
+            }
+        }
+    }
+
     private void moveObstacleDown()
     {
-        movementFactor += -0.01f;
+        movementFactor += -0.003f;
         Vector3 offset = movementVector * movementFactor;
         transform.position = offset + startingPosition;
     }
