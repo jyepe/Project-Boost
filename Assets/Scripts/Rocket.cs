@@ -155,6 +155,11 @@ public class Rocket : MonoBehaviour {
         if (status == RocketStatus.Transcending)
         {
             //Load next level
+            if (currentLevel == 2)
+            {
+
+            }
+            else
             SceneManager.LoadScene(currentLevel + 1);
         }
         else if (status == RocketStatus.Dead)
