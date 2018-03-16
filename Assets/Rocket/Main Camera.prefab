@@ -36,9 +36,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1732536610911162}
-  m_LocalRotation: {x: 0.0000006267801, y: 0.0000014584512, z: -0.000000013154931,
+  m_LocalRotation: {x: 0.0000005587935, y: 0.000000025611367, z: -0.000000002211891,
     w: 1}
-  m_LocalPosition: {x: -103.12008, y: 8.46812, z: -34.846634}
+  m_LocalPosition: {x: -39.78572, y: 5.1896257, z: -16.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,8 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d27e47e07be85409d1ace779c31bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementVector: {x: 1, y: 0, z: 0}
-  movementSpeed: 0.05
+  rocket: {fileID: 0}
+  relativeZ: 25
+  relativeY: 5
 --- !u!124 &124629152470576404
 Behaviour:
   m_ObjectHideFlags: 1

@@ -5,25 +5,17 @@ using UnityEngine;
 
 public class MoveCamera : MonoBehaviour {
 
-    [SerializeField] Vector3 movementVector;
-    float movementFactor;
-    [SerializeField] [Range(0,1)] float movementSpeed;
-    Vector3 startingPosition;
+    [SerializeField] Transform rocket;
+    [SerializeField] float relativeZ;
+    [SerializeField] float relativeY;
 
     // Use this for initialization
     void Start () {
-        startingPosition = transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        cameraMovement();
-	}
-
-    private void cameraMovement()
-    {
-        movementFactor += movementSpeed;
-        Vector3 offset = movementVector * movementFactor;
-        transform.position = offset + startingPosition;
+        Vector3 rocketPosition = rocket.transform.position;
+        transform.position = new Vector3(rocketPosition.x, rocketPosition.y + relativeY, rocketPosition.z - relativeZ);
     }
 }

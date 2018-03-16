@@ -21,7 +21,7 @@ public class Rocket : MonoBehaviour {
     [SerializeField] float loadLevelDelay = 1f;     //Determines how long in seconds to load next level
 
     Vector3 rotatingObstacleVector;     //The initial popsition of the rotating obstacle in the scene
-    Rigidbody rigidBody;    
+    Rigidbody rigidBody;
     AudioSource sound;
     Transform rotation;
     int currentLevel;

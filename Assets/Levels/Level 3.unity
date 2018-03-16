@@ -406,6 +406,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ac582089406ca9b42bd120dbe7a6367c, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &69500138 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4458105128394398, guid: ac582089406ca9b42bd120dbe7a6367c,
+    type: 2}
+  m_PrefabInternal: {fileID: 69500137}
 --- !u!1001 &92504242
 Prefab:
   m_ObjectHideFlags: 0
@@ -875,6 +880,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114489596490966408, guid: 4553a78e2f4400c4fb97221bf118e338,
+        type: 2}
+      propertyPath: rocket
+      value: 
+      objectReference: {fileID: 69500138}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4553a78e2f4400c4fb97221bf118e338, type: 2}
   m_IsPrefabParent: 0
