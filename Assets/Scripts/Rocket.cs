@@ -160,7 +160,10 @@ public class Rocket : MonoBehaviour {
 
             }
             else
-            SceneManager.LoadScene(currentLevel + 1);
+            {
+                SceneManager.LoadScene(currentLevel + 1);
+            }
+            
         }
         else if (status == RocketStatus.Dead)
         {
