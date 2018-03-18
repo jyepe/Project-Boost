@@ -8,6 +8,7 @@ public class ObstaclePosition : MonoBehaviour {
 
     [SerializeField] Vector3 movementVector;
     float movementFactor;
+    [SerializeField] [Range(0,1)] float movementSpeed;
     Boolean moveObstacles;
     Vector3 startingPosition;
 
@@ -60,14 +61,14 @@ public class ObstaclePosition : MonoBehaviour {
 
     private void moveObstacleDown()
     {
-        movementFactor += -0.01f;
+        movementFactor += -movementSpeed;
         Vector3 offset = movementVector * movementFactor;
         transform.position = offset + startingPosition;
     }
 
     private void moveObstacleUp()
     {
-        movementFactor += 0.01f;
+        movementFactor += movementSpeed;
         Vector3 offset = movementVector * movementFactor;
         transform.position = offset + startingPosition;
     }

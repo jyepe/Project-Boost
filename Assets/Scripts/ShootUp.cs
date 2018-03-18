@@ -6,6 +6,7 @@ public class ShootUp : MonoBehaviour {
 
     [SerializeField] Vector3 movementVector;
     float movementFactor;
+    [SerializeField] [Range(0,1)] float movementSpeed;
     Vector3 startingPosition;
 
     enum Direction
@@ -62,14 +63,14 @@ public class ShootUp : MonoBehaviour {
 
     private void moveObstacleDown()
     {
-        movementFactor += -0.003f;
+        movementFactor += -movementSpeed;
         Vector3 offset = movementVector * movementFactor;
         transform.position = offset + startingPosition;
     }
 
     private void moveObstacleUp()
     {
-        movementFactor += 0.011f;
+        movementFactor += movementSpeed;
         Vector3 offset = movementVector * movementFactor;
         transform.position = offset + startingPosition;
     }

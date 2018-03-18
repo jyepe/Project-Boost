@@ -8,7 +8,6 @@ public class Rocket : MonoBehaviour {
 
     [SerializeField] float rcsThrust = 100f;    //Used for power of rotation of the rocket
     [SerializeField] float mainThrust = 100f;   //Used for power of main thrust of rocket
-    [SerializeField] GameObject rotatingObstacle;   //The rotating obstacle in the scene
 
     [SerializeField] AudioClip mainEngineSound;
     [SerializeField] AudioClip explosionSound;
@@ -19,14 +18,12 @@ public class Rocket : MonoBehaviour {
     [SerializeField] ParticleSystem winningParticles;
 
     [SerializeField] float loadLevelDelay = 1f;     //Determines how long in seconds to load next level
-
-    Vector3 rotatingObstacleVector;     //The initial popsition of the rotating obstacle in the scene
+    
     Rigidbody rigidBody;
     AudioSource sound;
     Transform rotation;
-    int currentLevel;
 
-    //Two states that the ship can possibly be in
+    //Three states that the ship can possibly be in
     enum RocketStatus
     {
         Alive,
@@ -41,17 +38,15 @@ public class Rocket : MonoBehaviour {
         rigidBody = GetComponent<Rigidbody>();
         sound = GetComponent<AudioSource>();
         rotation = GetComponent<Transform>();
-
-        //Saving initial position of rotating obstacle
-        rotatingObstacleVector = rotatingObstacle.transform.position;
+        
         status = RocketStatus.Alive;
         getCurrentLevel();
 	}
 
     //Gets the current level loaded
-    private void getCurrentLevel()
+    private int getCurrentLevel()
     {
-        currentLevel = SceneManager.GetActiveScene().buildIndex;
+        return SceneManager.GetActiveScene().buildIndex;
     }
 	
 	// Update is called once per frame
@@ -62,8 +57,6 @@ public class Rocket : MonoBehaviour {
             Thrust();
             Rotate();
         }
-        
-        obstaclePosition();
     }
 
     //Moves the position of the rocket in the direction it's facing
@@ -106,26 +99,6 @@ public class Rocket : MonoBehaviour {
         rigidBody.freezeRotation = false;
     }
 
-    /// <summary>
-    /// Changes the rotating obstacle position depending on the location of the ship
-    /// </summary>
-    private void obstaclePosition()
-    {
-        //If the rocket goes higher than 12.16 on the y coordinate and beyond -12.16 on the x coordinate
-        if (transform.position.y >= 12.16f && transform.position.x >= -12.16f)
-        {
-            //Stop the rotation
-            rotatingObstacle.transform.rotation = new Quaternion(0, 0, 0, 0);
-            //Move the obstacle
-            rotatingObstacle.transform.position = new Vector3(rotatingObstacle.transform.position.x, 16.31f, 0);    
-        }
-        else
-        {
-            //Move the obstacle to starting position
-            rotatingObstacle.transform.position = rotatingObstacleVector;
-        }
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag.ToLower() != "friendly")
@@ -155,20 +128,20 @@ public class Rocket : MonoBehaviour {
         if (status == RocketStatus.Transcending)
         {
             //Load next level
-            if (currentLevel == 2)
+            if (getCurrentLevel() == 2)
             {
 
             }
             else
             {
-                SceneManager.LoadScene(currentLevel + 1);
+                SceneManager.LoadScene(getCurrentLevel() + 1);
             }
             
         }
         else if (status == RocketStatus.Dead)
         {
-            //Load level 1
-            SceneManager.LoadScene(0);
+            //Load current level
+            SceneManager.LoadScene(getCurrentLevel());
         }
     }
 
