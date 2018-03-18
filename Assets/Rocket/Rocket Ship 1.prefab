@@ -583,7 +583,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rcsThrust: 110
   mainThrust: 18
-  rotatingObstacle: {fileID: 0}
   mainEngineSound: {fileID: 8300000, guid: 5b8654842819b6b4b97d2145338110f0, type: 3}
   explosionSound: {fileID: 8300000, guid: 71bcbcd6a4af43d42ad14dd429b91bae, type: 3}
   winningSound: {fileID: 8300000, guid: ee3ee672fdbca794bb55cf418ec92cb6, type: 3}
