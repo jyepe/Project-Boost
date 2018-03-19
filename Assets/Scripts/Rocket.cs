@@ -128,9 +128,9 @@ public class Rocket : MonoBehaviour {
         if (status == RocketStatus.Transcending)
         {
             //Load next level
-            if (getCurrentLevel() == 2)
+            if (getCurrentLevel() == 3)
             {
-
+                SceneManager.LoadScene(getCurrentLevel());
             }
             else
             {
