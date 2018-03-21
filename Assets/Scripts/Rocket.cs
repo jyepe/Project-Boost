@@ -33,6 +33,14 @@ public class Rocket : MonoBehaviour {
 
     RocketStatus status = RocketStatus.Alive;
 
+    enum RocketFlight
+    {
+        Flying,
+        Still
+    }
+
+    RocketFlight state = RocketFlight.Still;
+
 	// Use this for initialization
 	void Start () {
         rigidBody = GetComponent<Rigidbody>();
@@ -54,29 +62,46 @@ public class Rocket : MonoBehaviour {
     {
         if (status == RocketStatus.Alive)
         {
-            Thrust();
+            shouldRocketFly();
             Rotate();
+        }
+
+        if (state == RocketFlight.Flying)
+        {
+            flyRocket();
         }
     }
 
     //Moves the position of the rocket in the direction it's facing
-    private void Thrust()
+    private void shouldRocketFly()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && state == RocketFlight.Still)
         {
-            //Makes rocket thrust frame independent
-            rigidBody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
-
-            if (!sound.isPlaying)
-            {
-                sound.PlayOneShot(mainEngineSound);
-                engineParticles.Play();
-            }
+            state = RocketFlight.Flying;
         }
-        else
+        else if (Input.GetKey(KeyCode.Space) && state == RocketFlight.Flying)
         {
+            state = RocketFlight.Still;
             sound.Stop();
             engineParticles.Stop();
+        }
+    }
+
+    //Keeps the rocket at a stable altitude
+    private void flyRocket()
+    {
+        //Makes rocket thrust frame independent
+        rigidBody.AddRelativeForce(Vector3.back * mainThrust * Time.deltaTime);
+
+        if (transform.position.y > 40f)
+        {
+            rigidBody.AddRelativeForce(Vector3.forward * mainThrust * Time.deltaTime);
+        }
+
+        if (!sound.isPlaying)
+        {
+            sound.PlayOneShot(mainEngineSound);
+            engineParticles.Play();
         }
     }
 
@@ -87,13 +112,21 @@ public class Rocket : MonoBehaviour {
 
         float rotationSpeed = rcsThrust * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.LeftArrow)) //Rotate ship to the left
+        if (Input.GetKey(KeyCode.A)) //Rotate ship to the left
         {
             rotation.Rotate(Vector3.forward * rotationSpeed);
         }
-        else if (Input.GetKey(KeyCode.RightArrow)) //Rotate ship to the right
+        else if (Input.GetKey(KeyCode.D)) //Rotate ship to the right
         {
             rotation.Rotate(Vector3.back * rotationSpeed);
+        }
+        else if (Input.GetKey(KeyCode.W)) //Move forward
+        {
+            rigidBody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+        }
+        else if (Input.GetKey(KeyCode.S)) //Move back
+        {
+            rigidBody.AddRelativeForce(Vector3.down * mainThrust * Time.deltaTime);
         }
 
         rigidBody.freezeRotation = false;
