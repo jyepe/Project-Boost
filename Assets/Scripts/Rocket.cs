@@ -75,11 +75,11 @@ public class Rocket : MonoBehaviour {
     //Moves the position of the rocket in the direction it's facing
     private void shouldRocketFly()
     {
-        if (Input.GetKey(KeyCode.Space) && state == RocketFlight.Still)
+        if (Input.GetKeyDown(KeyCode.Space) && state == RocketFlight.Still)
         {
             state = RocketFlight.Flying;
         }
-        else if (Input.GetKey(KeyCode.Space) && state == RocketFlight.Flying)
+        else if (Input.GetKeyDown(KeyCode.Space) && state == RocketFlight.Flying)
         {
             state = RocketFlight.Still;
             sound.Stop();
@@ -93,7 +93,7 @@ public class Rocket : MonoBehaviour {
         //Makes rocket thrust frame independent
         rigidBody.AddRelativeForce(Vector3.back * mainThrust * Time.deltaTime);
 
-        if (transform.position.y > 40f)
+        if (transform.position.y > 10f)
         {
             rigidBody.AddRelativeForce(Vector3.forward * mainThrust * Time.deltaTime);
         }
