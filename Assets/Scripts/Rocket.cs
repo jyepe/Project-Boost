@@ -91,11 +91,11 @@ public class Rocket : MonoBehaviour {
     private void flyRocket()
     {
         //Makes rocket thrust frame independent
-        rigidBody.AddRelativeForce(Vector3.back * mainThrust * Time.deltaTime);
+        rigidBody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
 
         if (transform.position.y > 10f)
         {
-            rigidBody.AddRelativeForce(Vector3.forward * mainThrust * Time.deltaTime);
+            rigidBody.AddRelativeForce(Vector3.down * mainThrust * Time.deltaTime);
         }
 
         if (!sound.isPlaying)
@@ -114,19 +114,19 @@ public class Rocket : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.A)) //Rotate ship to the left
         {
-            rotation.Rotate(Vector3.forward * rotationSpeed);
+            rotation.Rotate(Vector3.forward );
         }
         else if (Input.GetKey(KeyCode.D)) //Rotate ship to the right
         {
-            rotation.Rotate(Vector3.back * rotationSpeed);
+            rotation.Rotate(Vector3.back );
         }
         else if (Input.GetKey(KeyCode.W)) //Move forward
         {
-            rigidBody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+            rotation.Rotate(Vector3.right);
         }
         else if (Input.GetKey(KeyCode.S)) //Move back
         {
-            rigidBody.AddRelativeForce(Vector3.down * mainThrust * Time.deltaTime);
+            rotation.Rotate(-Vector3.right);
         }
 
         rigidBody.freezeRotation = false;
