@@ -22,26 +22,23 @@ public class Rocket : MonoBehaviour {
     Rigidbody rigidBody;
     AudioSource sound;
     Transform rotation;
+    Boolean collisionEnabled = true;
 
     //Three states that the ship can possibly be in
     enum RocketStatus
     {
-        Alive,
         Dead,
         Transcending
     }
 
-    RocketStatus status = RocketStatus.Alive;
+    RocketStatus status = RocketStatus.Transcending;
 
 	// Use this for initialization
 	void Start () {
         rigidBody = GetComponent<Rigidbody>();
         sound = GetComponent<AudioSource>();
         rotation = GetComponent<Transform>();
-        
-        status = RocketStatus.Alive;
-        getCurrentLevel();
-	}
+    }
 
     //Gets the current level loaded
     private int getCurrentLevel()
@@ -52,10 +49,19 @@ public class Rocket : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (status == RocketStatus.Alive)
+        if (status == RocketStatus.Transcending)
         {
             Thrust();
             Rotate();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            changeLevel();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionEnabled = !collisionEnabled;
         }
     }
 
@@ -101,7 +107,7 @@ public class Rocket : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag.ToLower() != "friendly")
+        if (collision.gameObject.tag.ToLower() != "friendly" && collisionEnabled)
         {
             if (collision.gameObject.tag.ToLower() == "finish") //If ship reached landing pad
             {
@@ -128,7 +134,7 @@ public class Rocket : MonoBehaviour {
         if (status == RocketStatus.Transcending)
         {
             //Load next level
-            if (getCurrentLevel() == 3)
+            if (getCurrentLevel() == 4)
             {
                 SceneManager.LoadScene(getCurrentLevel());
             }
